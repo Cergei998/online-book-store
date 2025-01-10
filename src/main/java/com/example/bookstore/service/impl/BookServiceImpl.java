@@ -9,20 +9,20 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BookServiceImpl implements BookService {
-    private BookRepository bookDao;
+    private BookRepository bookRepository;
 
     @Autowired
     public BookServiceImpl(BookRepository bookDao) {
-        this.bookDao = bookDao;
+        this.bookRepository = bookDao;
     }
 
     @Override
     public Book save(Book book) {
-        return bookDao.save(book);
+        return bookRepository.save(book);
     }
 
     @Override
     public List<Book> findAll() {
-        return bookDao.findAll();
+        return bookRepository.findAll();
     }
 }
