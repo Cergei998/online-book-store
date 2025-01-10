@@ -19,14 +19,14 @@ public class OnlineBookStoreApplication {
     }
 
     @Bean
-	public CommandLineRunner commandLineRunner() {
-          return args -> {
-			Book peacefulWarrior = new Book();
-			peacefulWarrior.setAuthor("Milman");
-			peacefulWarrior.setTitle("Peaceful warrior");
-			peacefulWarrior.setIsbn("xxx");
-			peacefulWarrior.setPrice(BigDecimal.valueOf(999));
-			bookService.save(peacefulWarrior);
-		};
-	}
+    public CommandLineRunner commandLineRunner() {
+        return args -> {
+            Book peacefulWarrior = new Book();
+            peacefulWarrior.setAuthor("Milman");
+            peacefulWarrior.setTitle("Peaceful warrior");
+            peacefulWarrior.setIsbn("xxx");
+            peacefulWarrior.setPrice(BigDecimal.valueOf(999));
+            bookService.save(peacefulWarrior);
+        };
+    }
 }
