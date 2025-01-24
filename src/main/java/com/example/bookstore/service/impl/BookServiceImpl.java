@@ -40,6 +40,10 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void deleteById(@PathVariable Long id) {
+        if (!bookRepository.existsById(id)) {
+            throw new EntityNotFoundException("Can`t delete book by id: " + id + ". Book with "
+                    + "id: " + id + " does not exist");
+        }
         bookRepository.deleteById(id);
 
     }
