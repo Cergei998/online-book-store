@@ -10,6 +10,7 @@ import com.example.bookstore.service.BookService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Service
 @RequiredArgsConstructor
@@ -35,5 +36,11 @@ public class BookServiceImpl implements BookService {
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Can`t find Book by id: " + id));
         return bookMapper.toDto(book);
+    }
+
+    @Override
+    public void deleteById(@PathVariable Long id) {
+        bookRepository.deleteById(id);
+
     }
 }
