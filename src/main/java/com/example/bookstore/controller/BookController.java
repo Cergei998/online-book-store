@@ -48,4 +48,8 @@ public class BookController {
     public BookDto update(@PathVariable Long id, @RequestBody CreateBookRequestDto bookDto) {
         return bookService.update(id, bookDto);
     }
+
+/*    @GetMapping("/search")
+    public List<BookDto> searchBooks(BookSearchParametersDto searchParameters)*/
+
 }
