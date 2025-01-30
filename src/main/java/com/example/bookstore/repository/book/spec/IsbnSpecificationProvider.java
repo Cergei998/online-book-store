@@ -1,7 +1,5 @@
 package com.example.bookstore.repository.book.spec;
 
-import static com.example.bookstore.repository.book.BookSpecificationBuilder.ISBN_KEY;
-
 import com.example.bookstore.model.Book;
 import com.example.bookstore.repository.SpecificationProvider;
 import java.util.Arrays;
@@ -12,7 +10,7 @@ public class IsbnSpecificationProvider implements SpecificationProvider<Book> {
 
     @Override
     public String getKey() {
-        return ISBN_KEY;
+        return "isbn";
     }
 
     @Override

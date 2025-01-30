@@ -1,7 +1,5 @@
 package com.example.bookstore.repository.book.spec;
 
-import static com.example.bookstore.repository.book.BookSpecificationBuilder.AUTHOR_KEY;
-
 import com.example.bookstore.model.Book;
 import com.example.bookstore.repository.SpecificationProvider;
 import java.util.Arrays;
@@ -14,7 +12,7 @@ public class AuthorSpecificationProvider implements SpecificationProvider<Book> 
 
     @Override
     public String getKey() {
-        return AUTHOR_KEY;
+        return "isbn";
     }
 
     public Specification<Book> getSpecification(String[] params) {
