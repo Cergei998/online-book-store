@@ -12,30 +12,33 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Component
 public class BookSpecificationBuilder implements SpecificationBuilder<Book> {
-    private static final String AUTHOR_KEY = "author";
-    private static final String TITLE_KEY = "title";
-    private static final String ISBN_KEY = "isbn";
+    public static final String AUTHOR_KEY = "author";
+    public static final String TITLE_KEY = "title";
+    public static final String ISBN_KEY = "isbn";
     @Autowired
     private final SpecificationProviderManager<Book> bookSpecificationProviderManager;
+    @Autowired
+    private final BookSearchParametersDto searchParameters;
 
     @Override
     public Specification<Book> build(BookSearchParametersDto searchParameters) {
         Specification<Book> bookSpecification = Specification.where(null);
         if (searchParameters.authors() != null && searchParameters.authors().length > 0) {
-            bookSpecification = bookSpecification
-                    .and(bookSpecificationProviderManager.getSpecificationProvider(AUTHOR_KEY)
-                            .getSpecification(searchParameters.authors()));
+            checkSpecificationParam(AUTHOR_KEY);
         }
         if (searchParameters.titles() != null && searchParameters.titles().length > 0) {
-            bookSpecification = bookSpecification
-                    .and(bookSpecificationProviderManager.getSpecificationProvider(TITLE_KEY)
-                            .getSpecification(searchParameters.titles()));
+            checkSpecificationParam(TITLE_KEY);
         }
         if (searchParameters.isbns() != null && searchParameters.isbns().length > 0) {
-            bookSpecification = bookSpecification
-                    .and(bookSpecificationProviderManager.getSpecificationProvider(ISBN_KEY)
-                            .getSpecification(searchParameters.isbns()));
+            checkSpecificationParam(ISBN_KEY);
         }
         return bookSpecification;
+    }
+
+    private void checkSpecificationParam(String key) {
+        Specification<Book> bookSpecification = Specification.where(null);
+        bookSpecification
+                .and(bookSpecificationProviderManager.getSpecificationProvider(key)
+                        .getSpecification(searchParameters.authors()));
     }
 }
