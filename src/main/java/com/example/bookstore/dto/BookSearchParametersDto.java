@@ -1,4 +1,4 @@
 package com.example.bookstore.dto;
 
-public record BookSearchParametersDto(String[] titles, String[] authors, String[] isbns) {
+public record BookSearchParametersDto(String[] title, String[] author, String[] isbn) {
 }
