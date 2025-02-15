@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler {
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex,
@@ -39,11 +40,7 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
     public ResponseEntity<Object> handleEntityNotFoundException(
             EntityNotFoundException entityNotFoundException) {
         String exceptionMessage = entityNotFoundException.getMessage();
-        Map<String, Object> body = new HashMap<>();
-        body.put("timestamp", LocalDateTime.now());
-        body.put("message", exceptionMessage);
-        body.put("status", HttpStatus.NOT_FOUND.value());
-        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(bodyMapper(exceptionMessage), HttpStatus.NOT_FOUND);
     }
 
     private String getErrorMessage(ObjectError e) {
@@ -53,5 +50,13 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
             return field + " " + message;
         }
         return e.getDefaultMessage();
+    }
+
+    private Map<String, Object> bodyMapper(String exceptionMessage) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("message", exceptionMessage);
+        body.put("status", HttpStatus.NOT_FOUND.value());
+        return body;
     }
 }
