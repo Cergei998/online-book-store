@@ -9,7 +9,6 @@ import com.example.bookstore.model.Book;
 import com.example.bookstore.repository.book.BookRepository;
 import com.example.bookstore.repository.book.BookSpecificationBuilder;
 import com.example.bookstore.service.BookService;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -61,11 +60,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookDto> search(BookSearchParametersDto parameters) {
-        Specification<Book> bookSpecification = bookSpecificationBuilder.build(parameters);
-        return bookRepository.findAll(bookSpecification)
-                .stream()
-                .map(bookMapper::toDto)
-                .toList();
+    public Page<BookDto> search(BookSearchParametersDto parametersDto, Pageable pageable) {
+        Specification<Book> bookSpecification = bookSpecificationBuilder.build(parametersDto);
+        return bookRepository
+                .findAll(bookSpecification, pageable)
+                .map(bookMapper::toDto);
+
     }
 }
